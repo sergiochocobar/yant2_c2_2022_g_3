@@ -4,13 +4,15 @@ import VueRouter from 'vue-router'
 import './assets/main.css'
 import Home from './components/Home.vue'
 import User from './components/User.vue'
+import Login from './components/Login.vue'
 
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 
 const routes = [
   {path: "/", component: Home },
-  {path: "/user", component: User }
+  {path: "/user", component: User },
+  {path: "/login", component: Login }
 ];
 
 const router =  new VueRouter({

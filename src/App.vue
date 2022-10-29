@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item pe-3">
-              <router-link  class="nav-link" to="/"><img src="./assets/user-solid.png" style="width: 25px"/></router-link>
+              <router-link  class="nav-link" to="/login"><img src="./assets/user-solid.png" style="width: 25px"/></router-link>
             </li>
             <li class="nav-item">
               <router-link  class="nav-link" to="/user"><img src="./assets/gear-solid.png" style="width: 25px"/></router-link>
@@ -21,5 +21,25 @@
     </nav>
 
     <router-view></router-view>
+
+
+    <footer class="mt-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h6 class="m-0 text-white">© Pharm App | Todos los Derechos Reservados</h6>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
+
+
+<style lang="css">
+
+  footer {
+    background-color: #00A2B9;
+    padding: 15px 0;
+  }
+</style> 
