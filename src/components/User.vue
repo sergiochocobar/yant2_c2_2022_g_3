@@ -12,7 +12,23 @@
 
         <div class="container mt-5">
             <div class="row">
-                <div class="col-3">
+
+                <div class="col-3" v-for="(item, index) in store.name" :key="index">
+                    <div class="card-shadow">
+                        <figure class="product-image text-center">
+                            <img src="../assets/mi-botiquin/bengue.jpeg" alt="">
+                        </figure>
+                        <h3 class="text-center">{{ item.name }}</h3>
+                        <p class="venc_text text-center mb-1">Venc: 2022-06-13</p>
+                        <p class="text-center">{{ item.description }}</p>
+                        <div class="text-center">
+                            <h4 class="badge rounded-pill bg-success text-center">Disponible</h4>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div class="col-3">
                     <div class="card-shadow">
                         <figure class="product-image text-center">
                             <img src="../assets/mi-botiquin/bengue.jpeg" alt="">
@@ -50,7 +66,7 @@
                             <h4 class="badge rounded-pill bg-danger text-center">Vacío</h4>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -84,3 +100,19 @@
     }
 
 </style> 
+
+<script>
+import { useNt2Store } from '../store';
+
+export default {
+  setup() {
+    //Vamos a dejar disponible el STATE
+    const store = useNt2Store() 
+    return { store }
+  },
+  async created() {
+    await this.store.init()
+  }
+}
+
+</script>

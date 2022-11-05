@@ -20,6 +20,12 @@
       </div>
     </nav>
 
+    <!-- <h1>{{store.name}}</h1> -->
+
+    <!-- <h2>{{store.contador}}</h2> -->
+
+    <!-- <button @click="store.incrementar">Incrementar</button> -->
+
     <router-view></router-view>
 
 
@@ -43,3 +49,20 @@
     padding: 15px 0;
   }
 </style> 
+
+
+<script>
+import { useNt2Store } from './store';
+
+export default {
+  setup() {
+    //Vamos a dejar disponible el STATE
+    const store = useNt2Store() 
+    return { store }
+  },
+  async created() {
+    await this.store.init()
+  }
+}
+
+</script>

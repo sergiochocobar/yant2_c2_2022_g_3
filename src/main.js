@@ -9,6 +9,11 @@ import Login from './components/Login.vue'
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 
+import {PiniaVuePlugin, createPinia} from "pinia"
+
+Vue.use(PiniaVuePlugin)
+const pinia = createPinia()
+
 const routes = [
   {path: "/", component: Home },
   {path: "/user", component: User },
@@ -22,6 +27,7 @@ const router =  new VueRouter({
 Vue.use(VueRouter)
 
 new Vue({
+  pinia,
   router,
   render: (h) => h(App)
 }).$mount('#app')
