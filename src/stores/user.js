@@ -19,17 +19,14 @@ export const useUserStore = defineStore('user', {
                 if(password == userData[0]["password"]) {
                     this.user = userData[0]
                 }
-            }
-            
-            /*for (var i = 0; i < userData.length; i++){ //Usar un filter
-                let obj = usersData[i];
+            } 
 
-                if(email == obj["email"] && password == obj["password"]){
-                    this.user = obj
-                }
-              }*/    
+            return this.user != null
+        },
 
-              return this.user != null
+
+        restarProducto(id){
+            console.log(id)
         }
     }
 })
