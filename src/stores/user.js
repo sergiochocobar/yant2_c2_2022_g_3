@@ -35,7 +35,7 @@ export const useUserStore = defineStore('user', {
 
             const productAmount = this.userProducts[productIndex]["amount"]
 
-            let objeto = { amount: parseInt(productAmount) - 1}
+            let objeto = { amount: parseInt(productAmount) - 1 }
 
             await axios.patch("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit/" + productId, objeto)
                 .then(function( response ){
