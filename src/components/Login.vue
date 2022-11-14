@@ -52,27 +52,23 @@
             }
         },
         methods: {
-            // login() {
-                //Si el email y la contrasena ingresada estan bien, cmabiar el parametro del estado centralizado a TRUE
-                //Guardar tambien el id del usuario.
-            //     console.log(`email: ${this.email} - contrasenia: ${this.password}`)
-            //     if (this.email == "sergio@email.com" && this.password == "123"){
-            //         this.error = false
-            //     } else {
-            //         this.error = true
-            //         this.error_msg = "Completa los campos requeridos"
-            //     }
-            // }
 
             async login() {
                 if (this.email != "" || this.password != ""){
                     this.error = false
-                    await this.userStore.signIn(this.email, this.password);
+                    let returnOfLogin = await this.userStore.signIn(this.email, this.password)
+
+                    if(returnOfLogin) {
+                        this.error = false
+                        this.$router.push("/")
+                    }else {
+                        this.error = true
+                        this.error_msg = "Usuario y/o contrasena invalidos"
+                    }
                 } else {
                     this.error = true
                     this.error_msg = "Completa los campos requeridos"
                 } 
-                // this.$router.push("/") // Por ahi no es un push sino un REDIRECT
             }
         }
     };
