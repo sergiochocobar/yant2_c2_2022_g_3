@@ -20,12 +20,6 @@
       </div>
     </nav>
 
-    <!-- <h1>{{store.name}}</h1> -->
-
-    <!-- <h2>{{store.contador}}</h2> -->
-
-    <!-- <button @click="store.incrementar">Incrementar</button> -->
-
     <router-view></router-view>
 
 

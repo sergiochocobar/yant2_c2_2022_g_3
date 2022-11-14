@@ -63,11 +63,11 @@
                         this.$router.push("/")
                     }else {
                         this.error = true
-                        this.error_msg = "Usuario y/o contrasena invalidos"
+                        this.error_msg = "Usuario y/o contraseña invalidos"
                     }
                 } else {
                     this.error = true
-                    this.error_msg = "Completa los campos requeridos"
+                    this.error_msg = "Completá los campos requeridos"
                 } 
             }
         }

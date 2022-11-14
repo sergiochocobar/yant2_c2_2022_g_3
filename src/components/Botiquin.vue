@@ -11,10 +11,9 @@
             </div>
 
             <div class="container mt-5">
-                Estado Loggin: {{ userStore.estadoLoggin }}
                 <div class="row">
 
-                    <div class="col-3 mb-5" v-for="(item, index) in userStore.medicineProducts['medicineKit']" :key="index">
+                    <div class="col-3 mb-5" v-for="(item, index) in userStore.medicineProducts" :key="index">
                         <div class="card-shadow">
                             <figure class="product-image text-center">
                                 <img src="../assets/mi-botiquin/bengue.jpeg" alt="">
@@ -23,8 +22,8 @@
                             <p class="venc_text text-center mb-1">{{item.due_date}}</p>
                             <p class="text-center">{{ item.description }}</p>
                             <div class="text-center">
-                                 <button type="button" class="btn btn-primary btn-sm" @click="userStore.restarProducto(item.id)">Restar</button>
-                                <button class="btn btn-warning active btn-sm ms-2 text-white" role="button" data-bs-toggle="button" aria-pressed="true">{{ item.amount }}</button>
+                                <button type="button" class="btn btn-primary btn-sm" @click="userStore.restarProducto(item.id)">Restar</button>
+                                <button class="btn btn-sm ms-2 text-white" v-bind:class="calcularCantidad(item.amount)" role="button" data-bs-toggle="button" aria-pressed="true">Cantidad: {{ item.amount }}</button>
                             </div>
                         </div>
                     </div>
@@ -64,13 +63,21 @@
     import { useUserStore } from "../stores/user";
 
     export default {
+
     setup() {
         const userStore = useUserStore();
         return { userStore };
     },
     methods: {
         calcularCantidad(cantidad){
-            return cantidad
+            let buttonClass = "btn-success"
+            if(cantidad < 3) {
+                buttonClass = "btn-danger"
+            } else if (cantidad < 7) {
+                buttonClass = "btn-warning"
+            } 
+
+            return buttonClass
         }
     }
     }
