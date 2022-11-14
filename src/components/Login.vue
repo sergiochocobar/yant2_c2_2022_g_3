@@ -2,11 +2,15 @@
     <div>
         <div class="container">
             <div class="row">
-                <div id="liveAlertPlaceholder"></div>
+                <!-- Alert -->
+                <div class="alert alert-danger" role="alert" v-if="error">
+                    {{this.error_msg}}
+                </div>
+                <!-- /// -->
                 <div class="col-12">
                     <div class="row">
                         <div class="col-5 m-auto mt-5">
-                            <form id="formulario">
+                            <form id="formulario" v-on:submit.prevent = "login">
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-10">
@@ -14,12 +18,12 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label" >Password</label>
                                     <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="inputPassword3">
+                                    <input type="password" class="form-control" id="inputPassword3" v-model="password">
                                     </div>
                                 </div>  
-                                <button class="btn btn-primary d-block m-auto" id="liveAlertBtn" @click="enviarForm()">Ingresar</button>
+                                <button type="submit" class="btn btn-primary d-block m-auto" id="liveAlertBtn">Ingresar</button>
                             </form>
                         </div>
                     </div>
@@ -30,18 +34,47 @@
 </template>
 
 <script>
+
+    import { useUserStore } from "../stores/user";
     export default {
-    name: "Login",
-    data() {
-        return {
-            email: ''
+
+        setup() {
+            const userStore = useUserStore();
+            return { userStore };
+        },
+
+        data() {
+            return {
+                email: "",
+                password: "",
+                error: false,
+                error_msg: ""
+            }
+        },
+        methods: {
+            // login() {
+                //Si el email y la contrasena ingresada estan bien, cmabiar el parametro del estado centralizado a TRUE
+                //Guardar tambien el id del usuario.
+            //     console.log(`email: ${this.email} - contrasenia: ${this.password}`)
+            //     if (this.email == "sergio@email.com" && this.password == "123"){
+            //         this.error = false
+            //     } else {
+            //         this.error = true
+            //         this.error_msg = "Completa los campos requeridos"
+            //     }
+            // }
+
+            async login() {
+                if (this.email != "" || this.password != ""){
+                    this.error = false
+                    await this.userStore.signIn(this.email, this.password);
+                } else {
+                    this.error = true
+                    this.error_msg = "Completa los campos requeridos"
+                } 
+                // this.$router.push("/") // Por ahi no es un push sino un REDIRECT
+            }
         }
-    },
-    methods: {
-        enviarForm() {
-            
-        }
-    }
     };
     
     // const alertPlaceholder = document.getElementById('liveAlertPlaceholder')

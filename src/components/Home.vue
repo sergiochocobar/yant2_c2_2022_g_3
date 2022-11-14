@@ -18,7 +18,7 @@
                             <div class="w-100" style="border:5px solid #B2B2B2;">
                                 <div class="w-100 image-container-01"></div>
                                 <h4 class="p-3">Elegí los mejores productos de nuestro catalógo, pensados para vos.</h4>
-                                <router-link  class="nav-link text-uppercase text-end pb-3 pe-3" to="/login">Ir al Catálogo</router-link>
+                                <router-link  class="nav-link text-uppercase text-end pb-3 pe-3" to="/catalogo">Ir al Catálogo</router-link>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                             <div class="w-100" style="border:5px solid #B2B2B2;">
                                 <div class="w-100 image-container-02"></div>
                                 <h4 class="p-3">Mi botiquín, donde podés ver, actualizar, y reservar tus compras.</h4>  
-                                <router-link  class="nav-link text-uppercase text-end pb-3 pe-3" to="/login">Ir a mi botiquín</router-link>
+                                <router-link  class="nav-link text-uppercase text-end pb-3 pe-3" to="/botiquin">Ir a mi botiquín</router-link>
                             </div>
                         </div>
                     </div>

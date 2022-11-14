@@ -4,13 +4,13 @@
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
                     <div class="col-12 text-center">
-                        <h1 class="text-white">Mi Botiquín</h1>
+                        <h1 class="text-white">Mi Usuario</h1>
                     </div>
                 </div>
             </div>        
         </div>
 
-        <div class="container mt-5">
+        <div class="container mt-5 d-none">
             <div class="row">
 
                 <div class="col-3" v-for="(item, index) in store.name" :key="index">
@@ -87,9 +87,6 @@
         padding: 15px;
     }
 
-    .product-image {
-
-    }
     .product-image img {
         width: 60%;
     }

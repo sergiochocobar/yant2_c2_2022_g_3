@@ -5,6 +5,7 @@ import './assets/main.css'
 import Home from './components/Home.vue'
 import User from './components/User.vue'
 import Login from './components/Login.vue'
+import Botiquin from './components/Botiquin.vue'
 
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
@@ -17,7 +18,8 @@ const pinia = createPinia()
 const routes = [
   {path: "/", component: Home },
   {path: "/user", component: User },
-  {path: "/login", component: Login }
+  {path: "/login", component: Login },
+  {path: "/botiquin", component: Botiquin },
 ];
 
 const router =  new VueRouter({
