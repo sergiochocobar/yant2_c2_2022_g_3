@@ -29,21 +29,35 @@ export const useUserStore = defineStore('user', {
 
 
         async restarProducto(productId){
-            let productIndex = this.userProducts.findIndex(function(item){
+            // let productIndex = this.userProducts.findIndex(function(item){
+            //     return item.id === productId
+            // });
+
+            let product = this.userProducts.find(function(item){
                 return item.id === productId
             });
 
-            const productAmount = this.userProducts[productIndex]["amount"]
+            // console.log(product)
 
-            let objeto = { amount: parseInt(productAmount) - 1 }
+            // const productAmount = product.amount
+
+            let objeto = { amount: parseInt(product.amount) - 1 }
 
             await axios.patch("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit/" + productId, objeto)
                 .then(function( response ){
-                    this.userProducts[productIndex]["amount"] = response.data["amount"]
+                    // this.userProducts[productIndex]["amount"] = response.data["amount"]
 
-                    if (this.userProducts[productIndex]["amount"] == 0){
-                        console.log("borrar producto") //Ver como eliminar cuando el producto sea 0
-                    }
+                    let product = this.userProducts.find(function(item){
+                        return item.id === productId
+                    });
+
+                    product.amount = response.data["amount"]
+
+
+
+                    // if (this.userProducts[productIndex]["amount"] == 0){
+                    //     console.log("borrar producto") //Ver como eliminar cuando el producto sea 0
+                    // }
                     
                 }.bind(this))
                 .catch( function( error ){
@@ -57,8 +71,39 @@ export const useUserStore = defineStore('user', {
             this.products = data
         },
 
-        agregarABotiquin(productId) {
-             console.log("Producto ID: " + productId)
+        async agregarABotiquin(productId) {
+            const resultado = this.userProducts.filter((elemento) => elemento["productId"] == productId);
+        
+            if(resultado != ""){
+                let productIndex = this.userProducts.findIndex(function(item){
+                    return item.productId === productId
+                });
+
+                const productAmount = this.userProducts[productIndex]["amount"]
+                let objeto = { amount: parseInt(productAmount) + 1 }
+
+                await axios.patch("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit/" + productId, objeto)
+                .then(function( response ){
+                    this.userProducts[productIndex]["amount"] = response.data["amount"]
+
+                    /// Si se agrego correctamente usar un alert!! usar el status code 200
+                    
+                }.bind(this))
+                .catch( function( error ){
+                    this.axiosError = error
+                }.bind(this))
+            } else {
+                const resultado2 = this.products.filter((elemento) => elemento["productId"] == productId);
+                resultado2["0"].userId = this.user.id;
+                
+                await axios.post("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit", resultado2["0"])
+                .then(function( response ){
+                    this.userProducts.push(response.data)
+                }.bind(this))
+                .catch( function( error ){
+                    this.axiosError = error
+                }.bind(this))
+            }
         }
     }
 })

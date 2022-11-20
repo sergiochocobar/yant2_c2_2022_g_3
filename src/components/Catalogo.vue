@@ -22,7 +22,7 @@
                         <p class="venc_text text-center mb-1">{{item.due_date}}</p>
                         <p class="text-center">{{ item.description }}</p>
                         <div class="text-center">
-                            <button type="button" class="btn btn-primary btn-sm" @click="userStore.agregarABotiquin(item.id)">Agregar a mi botiquín</button>
+                            <button type="button" class="btn btn-primary btn-sm" @click="userStore.agregarABotiquin(item.productId)">Agregar a mi botiquín</button>
                         </div>
                     </div>
                 </div>
