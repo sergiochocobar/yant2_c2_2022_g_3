@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" style="position: relative; height: 100%;">
 
-    <nav class="navbar navbar-expand-lg bg-light">
+    <!-- <nav class="navbar navbar-expand-lg bg-light">
       <div class="container">
         <router-link class="navbar-brand" to="/"><img src="./assets/logoPharmApp.png" style="width: 55px"/>PharmApp</router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,8 +14,9 @@
                 <img src="./assets/bell-solid.png" style="width: 25px"/>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">1</span>
                 <ul class="dropdown-menu ">
-                  <li><a class="dropdown-item" href="#">dsadsaudasdasidbaskjdbasjkdbaskjdbakjdbkajdbjkasb </a></li>
-  
+                  <li v-for="(item, index) in userStore.medicineProducts.filter(item => item.amount <= 2)" :key="index">
+                    <a class="dropdown-item" href="#">{{item.name}}</a>
+                  </li>
                 </ul>
               </div>
             </li>
@@ -28,12 +29,12 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
-    <router-view></router-view>
+    <router-view ></router-view>
 
-
-    <footer class="mt-5">
+    
+    <!-- <footer class="mt-5">
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -41,7 +42,7 @@
           </div>
         </div>
       </div>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -52,15 +53,8 @@
     background-color: #00A2B9;
     padding: 15px 0;
   }
-</style> 
 
-<script>
-  export default {
-    methods: {
-        async recargarPagina() {
-          location.reload()
-        }
-    }
+  router-view {
+    position: relative;
   }
-
-</script>
+</style> 

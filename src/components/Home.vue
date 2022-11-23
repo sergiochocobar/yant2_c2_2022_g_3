@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Navigation></Navigation>
         <div class="banner-home">
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
@@ -36,13 +37,9 @@
                 </div>
             </div>
         </div>
+        <Footer style="position: absolute; bottom: 0; width:100%"></Footer>
     </div>
 </template>
-
-<script>
-    export default {
-    }
-</script>
     
 <style lang="css">
 
@@ -75,20 +72,27 @@
 </style> 
 
 <script>
-  import { useUserStore } from "../stores/user";
-
-  export default {
-    setup() {
-        const userStore = useUserStore();
-        return { userStore };
-    },
+    import Navigation from './Navigation.vue';
+    import Footer from './Footer.vue';
+    import { useUserStore } from "../stores/user";
   
-    mounted() {
-      if(!this.userStore.estadoLoggin){
-        this.$router.push("login")
-      }
+
+
+    export default {
+        components: {
+            Navigation,
+            Footer
+        },
+
+        setup() {
+            const userStore = useUserStore();
+            return { userStore };
+        },
+
+        mounted() {
+            if(!this.userStore.estadoLoggin){
+            this.$router.push("login")
+            }
+        }
     }
-
-  }
-
 </script>

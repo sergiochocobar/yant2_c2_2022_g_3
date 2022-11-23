@@ -1,5 +1,6 @@
     <template>
         <div>
+            <Navigation></Navigation>
             <div class="banner-page">
                 <div class="container h-100">
                     <div class="row h-100 align-items-center">
@@ -30,6 +31,7 @@
 
                 </div>
             </div>
+            <Footer style="position: absolute; bottom: 0; width:100% "></Footer>
         </div>
     </template>
 
@@ -60,9 +62,16 @@
     </style> 
 
     <script>
+    import Navigation from './Navigation.vue';
+    import Footer from './Footer.vue';
     import { useUserStore } from "../stores/user";
 
     export default {
+        components: {
+            Navigation,
+            Footer
+        },
+
         setup() {
             const userStore = useUserStore();
             return { userStore };
