@@ -12,7 +12,13 @@
 
         <div class="container mt-5">
             <div class="row">
-
+                <div class="col-12" v-if="alertStatus">
+                    <!-- Alert -->
+                    <div class="alert" v-bind:class="this.alert" role="alert" >
+                        {{this.alertMsg}}
+                    </div>
+                </div>
+        
                 <div class="col-3 mb-5" v-for="(item, index) in userStore.products" :key="index">
                     <div class="card-shadow">
                         <figure class="product-image text-center">
@@ -22,7 +28,7 @@
                         <p class="venc_text text-center mb-1">{{item.due_date}}</p>
                         <p class="text-center">{{ item.description }}</p>
                         <div class="text-center">
-                            <button type="button" class="btn btn-primary btn-sm" @click="userStore.agregarABotiquin(item.productId)">Agregar a mi botiquín</button>
+                            <button type="button" class="btn btn-primary btn-sm" @click="agregarABotiquin(item.productId)">Agregar a mi botiquín</button>
                         </div>
                     </div>
                 </div>
@@ -67,8 +73,46 @@ export default {
         const userStore = useUserStore()
         return { userStore }
     },
+
+    data() {
+        return {
+            alert: "",
+            alertMsg: "",
+            alertStatus: false,
+        }
+    },
+    
     async created() {
         await this.userStore.catalogoInit()
+    },
+    
+    mounted() {
+      if(!this.userStore.estadoLoggin){
+        this.$router.push("login")
+      }
+    },
+    
+    methods: {
+        async agregarABotiquin(productId) {
+            let response = await this.userStore.agregarABotiquin(productId)
+            if (response == 200 || response == 201) {
+                this.alertStatus = true
+                this.alert = "alert-success"
+                this.alertMsg = "Producto agregado correctamente"
+            } else {
+                this.alertStatus = true
+                this.alert = "alert-danger"
+                this.alertMsg = "Hubo un problema al agregar el producto, intente nuevamente mas tarde"
+            }
+        }
+    },
+
+    watch:{
+        alertStatus(val){
+            if (val){
+                setTimeout(()=> this.alertStatus=false, 3000);
+            }
+        }
     }
 }
 

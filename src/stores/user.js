@@ -53,16 +53,30 @@ export const useUserStore = defineStore('user', {
 
                     product.amount = response.data["amount"]
 
-
-
-                    // if (this.userProducts[productIndex]["amount"] == 0){
-                    //     console.log("borrar producto") //Ver como eliminar cuando el producto sea 0
-                    // }
+                    if (this.userProducts[product.productId]["amount"] == 0){
+                        this.borrarProducto(product.id)
+                    }
                     
                 }.bind(this))
                 .catch( function( error ){
                     this.axiosError = error
                 }.bind(this))
+        },
+
+        borrarProducto(productId) {
+            axios.delete("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit/" + productId)
+            .then(function( response ){
+                
+                let productIndex = this.userProducts.findIndex(function(item){
+                    return item.id === response.data.id
+                });
+
+                this.userProducts.pop(productIndex)
+
+            }.bind(this))
+            .catch( function( error ){
+                this.axiosError = error
+            }.bind(this))
         },
 
         async catalogoInit() {
@@ -72,6 +86,7 @@ export const useUserStore = defineStore('user', {
         },
 
         async agregarABotiquin(productId) {
+            let axiosResponse
             const resultado = this.userProducts.filter((elemento) => elemento["productId"] == productId);
         
             if(resultado != ""){
@@ -82,12 +97,11 @@ export const useUserStore = defineStore('user', {
                 const productAmount = this.userProducts[productIndex]["amount"]
                 let objeto = { amount: parseInt(productAmount) + 1 }
 
-                await axios.patch("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit/" + productId, objeto)
+                await axios.patch("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit/" + this.userProducts[productIndex]["id"], objeto)
                 .then(function( response ){
-                    this.userProducts[productIndex]["amount"] = response.data["amount"]
 
-                    /// Si se agrego correctamente usar un alert!! usar el status code 200
-                    
+                    axiosResponse = response.status
+                    this.userProducts[productIndex]["amount"] = response.data["amount"]                    
                 }.bind(this))
                 .catch( function( error ){
                     this.axiosError = error
@@ -98,12 +112,15 @@ export const useUserStore = defineStore('user', {
                 
                 await axios.post("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit", resultado2["0"])
                 .then(function( response ){
+                    axiosResponse = response.status
                     this.userProducts.push(response.data)
                 }.bind(this))
                 .catch( function( error ){
                     this.axiosError = error
                 }.bind(this))
             }
+
+            return axiosResponse
         }
     }
 })

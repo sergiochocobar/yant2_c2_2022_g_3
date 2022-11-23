@@ -63,23 +63,27 @@
     import { useUserStore } from "../stores/user";
 
     export default {
+        setup() {
+            const userStore = useUserStore();
+            return { userStore };
+        },
+        methods: {
+            calcularCantidad(cantidad){
+                let buttonClass = "btn-success"
+                if(cantidad < 3) {
+                    buttonClass = "btn-danger"
+                } else if (cantidad < 7) {
+                    buttonClass = "btn-warning"
+                } 
 
-    setup() {
-        const userStore = useUserStore();
-        return { userStore };
-    },
-    methods: {
-        calcularCantidad(cantidad){
-            let buttonClass = "btn-success"
-            if(cantidad < 3) {
-                buttonClass = "btn-danger"
-            } else if (cantidad < 7) {
-                buttonClass = "btn-warning"
-            } 
-
-            return buttonClass
+                return buttonClass
+            }
+        },
+        mounted() {
+            if(!this.userStore.estadoLoggin){
+                this.$router.push("login")
+            }
         }
-    }
     }
 
     </script>

@@ -43,20 +43,3 @@
     padding: 15px 0;
   }
 </style> 
-
-
-<script>
-import { useNt2Store } from './store';
-
-export default {
-  setup() {
-    //Vamos a dejar disponible el STATE
-    const store = useNt2Store() 
-    return { store }
-  },
-  async created() {
-    await this.store.init()
-  }
-}
-
-</script>

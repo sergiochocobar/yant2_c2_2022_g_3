@@ -73,3 +73,22 @@
     }
 
 </style> 
+
+<script>
+  import { useUserStore } from "../stores/user";
+
+  export default {
+    setup() {
+        const userStore = useUserStore();
+        return { userStore };
+    },
+  
+    mounted() {
+      if(!this.userStore.estadoLoggin){
+        this.$router.push("login")
+      }
+    }
+
+  }
+
+</script>
