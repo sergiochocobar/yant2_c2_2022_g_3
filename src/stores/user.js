@@ -28,32 +28,19 @@ export const useUserStore = defineStore('user', {
         },
 
 
-        async restarProducto(productId){
-            // let productIndex = this.userProducts.findIndex(function(item){
-            //     return item.id === productId
-            // });
-
+        async restarProducto(id){                                   //El ID es unico en todos los botiquines habidos y por haber
             let product = this.userProducts.find(function(item){
-                return item.id === productId
+                return item.id === id
             });
-
-            // console.log(product)
-
-            // const productAmount = product.amount
 
             let objeto = { amount: parseInt(product.amount) - 1 }
 
-            await axios.patch("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit/" + productId, objeto)
+            await axios.patch("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user.id + "/medicineKit/" + id, objeto)
                 .then(function( response ){
-                    // this.userProducts[productIndex]["amount"] = response.data["amount"]
 
-                    let product = this.userProducts.find(function(item){
-                        return item.id === productId
-                    });
+                    product.amount = response.data.amount
 
-                    product.amount = response.data["amount"]
-
-                    if (this.userProducts[product.productId]["amount"] == 0){
+                    if (product.amount == 0) { 
                         this.borrarProducto(product.id)
                     }
                     
@@ -63,15 +50,15 @@ export const useUserStore = defineStore('user', {
                 }.bind(this))
         },
 
-        borrarProducto(productId) {
-            axios.delete("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit/" + productId)
+        borrarProducto(id) {
+            axios.delete("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user.id + "/medicineKit/" + id)
             .then(function( response ){
                 
                 let productIndex = this.userProducts.findIndex(function(item){
                     return item.id === response.data.id
                 });
 
-                this.userProducts.pop(productIndex)
+                this.userProducts.splice(productIndex, productIndex)
 
             }.bind(this))
             .catch( function( error ){
