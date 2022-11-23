@@ -9,12 +9,22 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item pe-3">
-              <router-link  class="nav-link" to="/login"><img src="./assets/user-solid.png" style="width: 25px"/></router-link>
+            <li class="nav-item  pe-3">
+              <div  class="nav-link position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="./assets/bell-solid.png" style="width: 25px"/>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">1</span>
+                <ul class="dropdown-menu ">
+                  <li><a class="dropdown-item" href="#">dsadsaudasdasidbaskjdbasjkdbaskjdbakjdbkajdbjkasb </a></li>
+  
+                </ul>
+              </div>
             </li>
+
+
             <li class="nav-item">
-              <router-link  class="nav-link" to="/user"><img src="./assets/gear-solid.png" style="width: 25px"/></router-link>
+              <div class="nav-link" @click="recargarPagina"><img src="./assets/sign-out.png" style="width: 25px"/></div>
             </li>
+            
           </ul>
         </div>
       </div>
@@ -43,3 +53,14 @@
     padding: 15px 0;
   }
 </style> 
+
+<script>
+  export default {
+    methods: {
+        async recargarPagina() {
+          location.reload()
+        }
+    }
+  }
+
+</script>

@@ -92,6 +92,7 @@ export const useUserStore = defineStore('user', {
                 .catch( function( error ){
                     this.axiosError = error
                 }.bind(this))
+
             } else {
                 const newProductToAdd = this.products.find(function(item){
                     return item.productId === productId

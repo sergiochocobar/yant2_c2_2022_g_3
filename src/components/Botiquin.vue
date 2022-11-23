@@ -16,7 +16,7 @@
                     <div class="col-3 mb-5" v-for="(item, index) in userStore.medicineProducts" :key="index">
                         <div class="card-shadow">
                             <figure class="product-image text-center">
-                                <img src="../assets/mi-botiquin/bengue.jpeg" alt="">
+                                <img v-bind:src="item.image" alt="">
                             </figure>
                             <h3 class="text-center">{{ item.name }}</h3>
                             <p class="venc_text text-center mb-1">{{item.due_date}}</p>
