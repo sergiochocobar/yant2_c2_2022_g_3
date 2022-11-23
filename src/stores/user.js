@@ -28,7 +28,14 @@ export const useUserStore = defineStore('user', {
         },
 
 
-        async restarProducto(id){                                   //El ID es unico en todos los botiquines habidos y por haber
+        async catalogoInit() {
+            const result = await fetch ("https://6365984d046eddf1baf037f5.mockapi.io/medicineKit2")
+            const data = await result.json()
+            this.products = data
+        },
+
+
+        async restarProducto(id){
             let product = this.userProducts.find(function(item){
                 return item.id === id
             });
@@ -50,6 +57,7 @@ export const useUserStore = defineStore('user', {
                 }.bind(this))
         },
 
+
         borrarProducto(id) {
             axios.delete("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user.id + "/medicineKit/" + id)
             .then(function( response ){
@@ -66,38 +74,32 @@ export const useUserStore = defineStore('user', {
             }.bind(this))
         },
 
-        async catalogoInit() {
-            const result = await fetch ("https://6365984d046eddf1baf037f5.mockapi.io/medicineKit2")
-            const data = await result.json()
-            this.products = data
-        },
-
         async agregarABotiquin(productId) {
             let axiosResponse
-            const resultado = this.userProducts.filter((elemento) => elemento["productId"] == productId);
-        
-            if(resultado != ""){
-                let productIndex = this.userProducts.findIndex(function(item){
-                    return item.productId === productId
-                });
 
-                const productAmount = this.userProducts[productIndex]["amount"]
-                let objeto = { amount: parseInt(productAmount) + 1 }
+            const product = this.userProducts.find(function(item){
+                return item.productId === productId
+            });
+            
+            if(product != null){            
+                let objeto = { amount: parseInt(product.amount) + 1 }
 
-                await axios.patch("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit/" + this.userProducts[productIndex]["id"], objeto)
+                await axios.patch("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user.id + "/medicineKit/" + product.id , objeto)
                 .then(function( response ){
-
                     axiosResponse = response.status
-                    this.userProducts[productIndex]["amount"] = response.data["amount"]                    
+                    product.amount = response.data.amount                  
                 }.bind(this))
                 .catch( function( error ){
                     this.axiosError = error
                 }.bind(this))
             } else {
-                const resultado2 = this.products.filter((elemento) => elemento["productId"] == productId);
-                resultado2["0"].userId = this.user.id;
+                const newProductToAdd = this.products.find(function(item){
+                    return item.productId === productId
+                });
+
+                newProductToAdd.userId = this.user.id;
                 
-                await axios.post("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user['id'] + "/medicineKit", resultado2["0"])
+                await axios.post("https://6365984d046eddf1baf037f5.mockapi.io/users/" + this.user.id + "/medicineKit", newProductToAdd)
                 .then(function( response ){
                     axiosResponse = response.status
                     this.userProducts.push(response.data)
