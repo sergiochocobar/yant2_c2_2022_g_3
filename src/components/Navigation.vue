@@ -17,9 +17,9 @@
             <li class="nav-item  pe-3">
               <div  class="nav-link position-relative" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="../assets/bell-solid.png" style="width: 25px"/>
-                <span class="position-absolute translate-middle badge rounded-pill bg-danger" v-if="probando.length > 0">{{ probando.length }}</span>
-                <ul class="dropdown-menu "  v-if="probando.length > 0">
-                  <li v-for="(item, index) in probando" :key="index">
+                <span class="position-absolute translate-middle badge rounded-pill bg-danger" v-if="arrayAlertas.length > 0">{{ arrayAlertas.length }}</span>
+                <ul class="dropdown-menu "  v-if="arrayAlertas.length > 0">
+                  <li v-for="(item, index) in arrayAlertas" :key="index">
                      <a class="dropdown-item">¡El producto <b>{{item.name}}</b> está a punto de agotarse!</a> 
                   </li> 
                 </ul>
@@ -58,7 +58,7 @@ export default {
   
 
     computed: {
-      probando() {
+      arrayAlertas() {
         this.productsNotificacionObjects = []
         if(this.userStore.estadoLoggin){
           let userStoreProducts =  this.userStore.medicineProducts
