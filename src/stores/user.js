@@ -66,7 +66,7 @@ export const useUserStore = defineStore('user', {
                     return item.id === response.data.id
                 });
 
-                this.userProducts.splice(productIndex, productIndex)
+                this.userProducts.splice(productIndex, 1)
 
             }.bind(this))
             .catch( function( error ){

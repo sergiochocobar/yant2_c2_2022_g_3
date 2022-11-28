@@ -31,7 +31,7 @@
 
                 </div>
             </div>
-            <Footer style="position: absolute; bottom: 0; width:100% "></Footer>
+            <Footer style="position: absolute; bottom: 0; width:100%"></Footer>
         </div>
     </template>
 
